@@ -1,0 +1,141 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --dark-color: #333;
+        --success-color: #28a745;
+        --info-color: #17a2b8;
+    }
+    
+    .reservations-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    h2 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+    
+    .add-reservation {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+    }
+    
+    .add-reservation:hover {
+        background-color: #6d4722;
+        transform: translateY(-2px);
+    }
+    
+    .reservations-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    
+    .reservations-table th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 15px;
+        text-align: left;
+    }
+    
+    .reservations-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: white;
+    }
+    
+    .reservations-table tr:hover td {
+        background-color: var(--secondary-color);
+    }
+    
+    .action-links {
+        white-space: nowrap;
+    }
+    
+    .action-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin: 0 5px;
+        transition: all 0.3s;
+        padding: 5px 8px;
+        border-radius: 3px;
+    }
+    
+    .action-links a:hover {
+        text-decoration: none;
+        background-color: rgba(139, 90, 43, 0.1);
+    }
+    
+    .btn-modify {
+        color: var(--info-color);
+    }
+    
+    .btn-delete {
+        color: #dc3545;
+    }
+    
+    .btn-invoice {
+        color: var(--success-color);
+    }
+    
+    .price-cell {
+        font-weight: 600;
+        color: var(--success-color);
+    }
+    
+    @media (max-width: 768px) {
+        .reservations-table {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+</style>
+
+<div class="reservations-container">
+    <h2>Réservations</h2>
+    <a href="{% url 'preparer_reservation' %}" class="add-reservation">➕ Ajouter une réservation</a>
+    
+    <table class="reservations-table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Chambre</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reservations %}
+            <tr>
+                <td>{{ r.client.name }} {{ r.client.prenom }}</td>
+                <td>Chambre {{ r.chambre.numero }} ({{ r.chambre.get_type_display }})</td>
+                <td>{{ r.date_debut }}</td>
+                <td>{{ r.date_fin }}</td>
+                <td class="price-cell">{{ r.prix_total }} €</td>
+                <td class="action-links">
+                    <a href="{% url 'modifier_reservation' r.id %}" class="btn-modify">Modifier</a>
+                    <a href="{% url 'supprimer_reservation' r.id %}" class="btn-delete">Supprimer</a>
+                    <a href="{% url 'generer_facture_pdf' r.id %}" class="btn-invoice">Facture</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

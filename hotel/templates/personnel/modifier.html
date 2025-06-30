@@ -1,0 +1,61 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<div class="reservation-form" style="max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+    <h2 style="color: #8B5A2B; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #F5DEB3;">
+        {% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} Réservation
+    </h2>
+    
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 25px;">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" style="background-color: #8B5A2B; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+            Enregistrer
+        </button>
+    </form>
+</div>
+
+<style>
+    /* Style des éléments du formulaire */
+    .reservation-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .reservation-form input,
+    .reservation-form select,
+    .reservation-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    .reservation-form button:hover {
+        background-color: #6d4722 !important;
+        transform: translateY(-2px);
+    }
+    
+    .reservation-form .errorlist {
+        color: #dc3545;
+        padding-left: 0;
+        list-style-type: none;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    
+    .reservation-form .helptext {
+        color: #6c757d;
+        font-size: 0.875rem;
+        display: block;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}

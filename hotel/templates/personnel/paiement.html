@@ -1,0 +1,10 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<h2>Paiement</h2>
+<p>Client : {{ client.name }}</p>
+<p>Chambre : {{ chambre.numero }}</p>
+<p>Prix à payer : {{ prix }}</p>
+<form method="post">{% csrf_token %}
+    <button type="submit">Payer et réserver</button>
+</form>
+{% endblock %}

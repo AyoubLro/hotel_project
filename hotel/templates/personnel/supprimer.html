@@ -1,0 +1,40 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<div class="delete-confirmation" style="max-width: 500px; margin: 40px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center;">
+    <h2 style="color: #dc3545; margin-bottom: 25px; font-size: 1.8rem;">Supprimer la réservation</h2>
+    
+    <p style="font-size: 1.1rem; margin-bottom: 30px; color: #333; line-height: 1.6;">
+        Voulez-vous vraiment supprimer définitivement la réservation pour 
+        <strong style="color: #8B5A2B;">{{ reservation.client.prenom }} {{ reservation.client.name }}</strong> ?
+    </p>
+
+    <div style="margin-top: 30px; background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: left;">
+        <p style="margin: 5px 0;"><strong>Chambre:</strong> N°{{ reservation.chambre.numero }} ({{ reservation.chambre.get_type_display }})</p>
+        <p style="margin: 5px 0;"><strong>Dates:</strong> Du {{ reservation.date_debut|date:"d/m/Y" }} au {{ reservation.date_fin|date:"d/m/Y" }}</p>
+        <p style="margin: 5px 0;"><strong>Prix total:</strong> {{ reservation.prix_total }} €</p>
+    </div>
+
+    <form method="post" style="margin-top: 30px;">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 12px 30px; font-size: 16px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: all 0.3s; margin-right: 15px;">
+            Oui, supprimer
+        </button>
+        <a href="{% url 'liste_reservations' %}" style="display: inline-block; padding: 12px 30px; background-color: #F5DEB3; color: #333; text-decoration: none; border-radius: 5px; font-weight: 600; transition: all 0.3s;">
+            Annuler
+        </a>
+    </form>
+</div>
+
+<style>
+    .delete-confirmation button:hover {
+        background-color: #c82333 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .delete-confirmation a:hover {
+        background-color: #e0c9a0;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Client - Luxury Haven</title>
+    <style>
+        :root {
+            --primary-color: #8B5A2B; /* Marron Luxury Haven */
+            --secondary-color: #F5DEB3; /* Beige */
+            --error-color: #dc3545; /* Rouge pour erreurs */
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f5f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+        }
+        
+        p[style="color:red;"] {
+            color: var(--error-color) !important;
+            background: #f8d7da;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--error-color);
+            text-align: center;
+        }
+        
+        .form-row {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 90, 43, 0.25);
+        }
+        
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #6d4722; /* Marron plus foncé */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .login-links a:hover {
+            color: #6d4722;
+            text-decoration: underline;
+        }
+        
+        ul.errorlist {
+            color: var(--error-color);
+            padding-left: 20px;
+            margin-top: 5px;
+            font-size: 14px;
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Connexion Client</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Se connecter</button>
+        </form>
+        <div class="login-links">
+            <a href="#">Mot de passe oublié ?</a> | 
+            <a href="{% url 'register' %}">Créer un compte</a>
+        </div>
+    </div>
+</body>
+</html>

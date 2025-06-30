@@ -1,0 +1,103 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --dark-color: #333;
+        --light-color: #f8f9fa;
+    }
+    
+    .client-form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    h2 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+    
+    input, select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    
+    button[type="submit"] {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 20px;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #6d4722;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        padding-left: 0;
+        list-style-type: none;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="client-form-container">
+    <h2>{{ client|default_if_none:"Ajouter un client" }}</h2>
+    <h1>Ajouter un client</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if field.help_text %}
+                <small style="color: #6c757d; font-size: 0.875rem;">{{ field.help_text }}</small>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
+{% endblock %}

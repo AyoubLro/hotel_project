@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+  
+<head>
+
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; }
+        .section { margin-bottom: 15px; }
+        .bold { font-weight: bold; }
+        .center { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td, th { border: 1px solid black; padding: 5px; }
+        h1{font-size: 20px; color: #8B5A2B;}
+    </style>
+</head>
+<body>
+    <h1>Luxury Haven personnel</h1>
+    <h2 class="center">FACTURE</h2>
+    
+    <div class="section">
+        <p><span class="bold">Client :</span> {{ paiement.client.prenom }} {{ paiement.client.name }}</p>
+        <p><span class="bold">Téléphone :</span> {{ paiement.client.phone }}</p>
+        <p><span class="bold">Email :</span> {{ paiement.client.email }}</p>
+    </div>
+
+    <div class="section">
+        <!-- <p><span class="bold">Chambre :</span> {{ paiement.chambre.numero }}</p>
+        <p><span class="bold">Type :</span> {{ paiement.chambre.type }}</p> -->
+        <p><span class="bold">Prix payé :</span> {{ paiement.montant }} DA</p>
+        <p><span class="bold">Date du paiement :</span> {{ paiement.date_paiement|date:"d/m/Y H:i" }}</p>
+    </div>
+
+    <p class="center">Merci pour votre réservation !</p>
+</body>
+</html>
+

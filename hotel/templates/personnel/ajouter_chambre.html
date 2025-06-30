@@ -1,0 +1,9 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<h2>{{ chambre|default_if_none:"Ajouter une chambre" }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+</form>
+{% endblock %}

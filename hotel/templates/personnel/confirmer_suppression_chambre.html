@@ -1,0 +1,105 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --error-color: #dc3545;
+        --dark-color: #333;
+    }
+    
+    .delete-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    
+    h2 {
+        color: var(--error-color);
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+    }
+    
+    .confirmation-message {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        color: var(--dark-color);
+        line-height: 1.6;
+    }
+    
+    .confirmation-message strong {
+        color: var(--primary-color);
+    }
+    
+    .btn-delete {
+        background-color: var(--error-color);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-right: 15px;
+    }
+    
+    .btn-delete:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .btn-cancel {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .btn-cancel:hover {
+        background-color: #e0c9a0;
+        transform: translateY(-2px);
+    }
+    
+    .room-details {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        text-align: left;
+    }
+    
+    .room-details p {
+        margin: 5px 0;
+    }
+</style>
+
+<div class="delete-container">
+    <h2>Supprimer la chambre</h2>
+    
+    <p class="confirmation-message">
+        Voulez-vous vraiment supprimer définitivement la chambre <strong>n°{{ chambre.numero }}</strong> ?
+    </p>
+    
+    <div class="room-details">
+        <p><strong>Type :</strong> {{ chambre.get_type_display }}</p>
+        <p><strong>Prix :</strong> {{ chambre.prix }} €</p>
+        <p><strong>État :</strong> {{ chambre.etat }}</p>
+    </div>
+    
+    <form method="post" style="margin-top: 30px;">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete">Oui, supprimer</button>
+        <a href="{% url 'liste_chambre' %}" class="btn-cancel">Annuler</a>
+    </form>
+</div>
+{% endblock %}

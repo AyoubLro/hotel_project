@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Haven Admin</title>
+    <style>
+        /* Classes de base réutilisables */
+        .nav-container {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-brand {
+            color: #8B5A2B;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-item:hover {
+            color: #8B5A2B;
+            background-color: rgba(139, 90, 43, 0.1);
+        }
+        
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .nav-logout {
+            color: #dc3545;
+        }
+        
+        .nav-logout:hover {
+            color: white;
+            background-color: #dc3545;
+        }
+        
+        /* Version responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 15px;
+                gap: 10px;
+            }
+        }
+    </style>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav class="nav-container">
+        <div class="nav-brand">Luxury Haven personnel</div>
+        <div class="nav-menu">
+           
+            <a href="{% url 'liste_client' %}" class="nav-item">
+                <i class="fas fa-users nav-icon"></i> Clients
+            </a>
+            <a href="{% url 'liste_chambre' %}" class="nav-item">
+                <i class="fas fa-bed nav-icon"></i> Chambres
+            </a>
+            <a href="{% url 'liste_reservations' %}" class="nav-item">
+                <i class="fas fa-calendar-check nav-icon"></i> Réservations
+            </a>
+            <a href="{% url 'liste_reclamations' %}" class="nav-item">
+                <i class="fas fa-exclamation-circle nav-icon"></i> Réclamations
+            </a>
+            <a href="{% url 'logout_personnel' %}" class="nav-item nav-logout">
+                <i class="fas fa-sign-out-alt nav-icon"></i> Déconnexion
+            </a>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

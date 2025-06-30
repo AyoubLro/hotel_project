@@ -1,0 +1,322 @@
+{% extends 'client/base_client.html' %}
+{%block content%}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Client - Luxury Haven</title>
+    <style>
+        :root {
+            --primary-color: #8B5A2B;
+            --secondary-color: #F5DEB3;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            background-color: #f9f5f0;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-brand {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Header */
+        .header {
+            padding: 30px 5%;
+            background-color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Contenu principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            margin-bottom: 50px;
+        }
+        
+        /* Cartes chambres */
+        .chambres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .chambre {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .chambre:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chambre-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .chambre-content {
+            padding: 20px;
+        }
+        
+        .chambre-title {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .chambre-details {
+            margin-bottom: 15px;
+        }
+        
+        .chambre-details p {
+            margin: 5px 0;
+        }
+        
+        .favori {
+            color: #dc3545;
+            margin-right: 5px;
+        }
+        
+        /* Boutons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #6d4722;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 5%;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+   
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Bienvenue, {{ client.prenom }} {{ client.name }}</h1>
+                <p><strong>Email :</strong> {{ client.email }} | <strong>Téléphone :</strong> {{ client.phone }}</p>
+            </div>
+            <a href="{% url 'modifier_infos' %}" class="btn btn-outline">Modifier mes informations</a>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h2>Nos chambres disponibles</h2>
+        
+        {% if chambres %}
+        <div class="chambres-grid">
+            {% for chambre in chambres %}
+            <div class="chambre">
+                {% if chambre.image %}
+                <img src="{{ chambre.image.url }}" width="300" height="200">
+            {% else %}
+                Pas d'image
+            {% endif %}
+                <div class="chambre-content">
+                    <h3 class="chambre-title">Chambre {{ chambre.numero }}</h3>
+                    <div class="chambre-details">
+                        <p><strong>Type :</strong> {{ chambre.get_type_display }}</p>
+                        <p><strong>Prix :</strong> {{ chambre.prix }} € / nuit</p>
+                        <p><strong>État :</strong> {{ chambre.etat }}</p>
+                        {% if chambre.id in chambres_appreciees_ids %}
+                        <p style="color: #dc3545;"><i class="fas fa-heart favori"></i> Dans vos favoris</p>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'reserver_chambre' chambre.id %}" class="btn btn-primary">Réserver maintenant</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Aucune chambre disponible pour le moment.</p>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Luxury Haven</h4>
+                <p>Votre expérience de luxe inoubliable depuis 1995.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Chambres</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Mon compte</h4>
+                <ul class="footer-links">
+                    <li><a href="{% url 'modifier_infos' %}">Modifier mes informations</a></li>
+                    <li><a href="#">Mes réservations</a></li>
+                    <li><a href="#">Mes favoris</a></li>
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>123 Avenue Luxury<br>75001 Paris, France</p>
+                <p>+33 1 23 45 67 89</p>
+                <p>contact@luxuryhaven.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Luxury Haven. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome pour les icônes -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+{%endblock%}

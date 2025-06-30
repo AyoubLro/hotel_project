@@ -1,0 +1,160 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block content %}
+    <meta charset="UTF-8">
+    <title>Dashboard Personnel - Luxury Haven</title>
+    <style>
+        :root {
+            --primary-color: #8B5A2B;
+            --secondary-color: #F5DEB3;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f5f0;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .search-form {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-form input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-width: 200px;
+        }
+        
+        .search-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-form button:hover {
+            background-color: #6d4722;
+        }
+        
+        .add-client {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .add-client:hover {
+            background-color: #6d4722;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        tr:hover td {
+            background-color: var(--secondary-color);
+        }
+        
+        .action-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .action-links a:hover {
+            text-decoration: underline;
+            color: #6d4722;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h2>Liste des clients</h2>
+
+    <form method="get" class="search-form">
+        <input type="text" name="nom" placeholder="Nom" value="{{ query_nom }}">
+        <input type="text" name="prenom" placeholder="Prénom" value="{{ query_prenom }}">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <a href="{% url 'ajouter_client' %}" class="add-client">➕ Ajouter un client</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.prenom }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.phone }}</td>
+                    <td class="action-links">
+                        <a href="{% url 'modifier_client' client.id %}">Modifier</a> |
+                        <a href="{% url 'supprimer_client' client.id %}">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="no-results">Aucun client trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}

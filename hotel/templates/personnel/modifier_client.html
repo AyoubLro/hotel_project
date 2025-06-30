@@ -1,0 +1,75 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --dark-color: #333;
+    }
+    
+    h2 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+    
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 25px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    }
+    
+    p {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+    
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    button[type="submit"] {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #6d4722;
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        padding-left: 0;
+        list-style: none;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+</style>
+
+<h2>{{ client|default_if_none:"Ajouter un client" }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+</form>
+{% endblock %}

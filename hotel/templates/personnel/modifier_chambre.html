@@ -1,0 +1,115 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --dark-color: #333;
+        --light-color: #f8f9fa;
+    }
+    
+    .room-form-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    h2 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+    
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    .file-input {
+        margin-top: 5px;
+    }
+    
+    button[type="submit"] {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 20px;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #6d4722;
+        transform: translateY(-2px);
+    }
+    
+    .errorlist {
+        color: #dc3545;
+        padding-left: 0;
+        list-style-type: none;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    
+    .help-text {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="room-form-container">
+    <h2>{{ chambre|default_if_none:"Ajouter une chambre" }}</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if field.help_text %}
+                <span class="help-text">{{ field.help_text }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
+{% endblock %}

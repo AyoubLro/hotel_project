@@ -1,0 +1,144 @@
+{% extends 'personnel/personnel_dashboard.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #8B5A2B;
+        --secondary-color: #F5DEB3;
+        --dark-color: #333;
+        --light-color: #f8f9fa;
+    }
+    
+    .rooms-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    h1 {
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+    
+    .add-room {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+    }
+    
+    .add-room:hover {
+        background-color: #6d4722;
+        transform: translateY(-2px);
+    }
+    
+    .rooms-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    
+    .rooms-table th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 15px;
+        text-align: left;
+    }
+    
+    .rooms-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: white;
+    }
+    
+    .rooms-table tr:hover td {
+        background-color: var(--secondary-color);
+    }
+    
+    .room-image {
+        width: 100px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+    
+    .no-image {
+        color: #777;
+        font-style: italic;
+    }
+    
+    .action-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin: 0 5px;
+        transition: all 0.3s;
+    }
+    
+    .action-links a:hover {
+        text-decoration: underline;
+        color: #6d4722;
+    }
+    
+    .status-available {
+        color: #28a745;
+        font-weight: 500;
+    }
+    
+    .status-occupied {
+        color: #dc3545;
+        font-weight: 500;
+    }
+    
+    .status-maintenance {
+        color: #ffc107;
+        font-weight: 500;
+    }
+</style>
+
+<div class="rooms-container">
+    <h1>Liste des chambres</h1>
+    <a href="{% url 'ajouter_chambre' %}" class="add-room">➕ Ajouter une chambre</a>
+    
+    <table class="rooms-table">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Type</th>
+                <th>Prix</th>
+                <th>État</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chambre in chambres %}
+            <tr>
+                <td>{{ chambre.numero }}</td>
+                <td>{{ chambre.type }}</td>
+                <td>{{ chambre.prix }} €</td>
+                <td class="status-{{ chambre.etat|lower }}">
+                    {{ chambre.etat }}
+                </td>
+                <td>
+                    {% if chambre.image %}
+                        <img src="{{ chambre.image.url }}" class="room-image" alt="Chambre {{ chambre.numero }}">
+                    {% else %}
+                        <span class="no-image">Pas d'image</span>
+                    {% endif %}
+                </td>
+                <td class="action-links">
+                    <a href="{% url 'modifier_chambre' chambre.id %}">Modifier</a> |
+                    <a href="{% url 'supprimer_chambre' chambre.id %}">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
