@@ -1,4 +1,24 @@
-display for every client his history of reservation
-dec--> acc
-eur->mad 
-contrai date depart>date retour
+# Projet Gestion Hôtelière
+
+## Description
+Ce projet est une application de gestion hôtelière permettant de gérer :
+
+- Les réservations
+- Les chambres
+- Les clients
+- Les services de l'hôtel
+
+## Technologies utilisées
+- Java
+- MySQL
+- HTML / CSS
+- PHP
+
+## Fonctionnalités
+- Gestion des clients
+- Réservation des chambres
+- Gestion des paiements
+- Administration des chambres
+
+## Auteur
+Azzeddine Beroui
