@@ -1,24 +1,86 @@
-# Projet Gestion Hôtelière
+# 🏨 Projet Gestion Hôtelière
 
-## Description
-Ce projet est une application de gestion hôtelière permettant de gérer :
+## 📌 Description
 
-- Les réservations
-- Les chambres
-- Les clients
-- Les services de l'hôtel
+Ce projet est une application de gestion hôtelière permettant de gérer efficacement les opérations d’un hôtel telles que :
 
-## Technologies utilisées
+- Gestion des chambres
+- Gestion des clients
+- Réservations
+- Paiements
+- Services hôteliers
+
+L’objectif principal est de simplifier l’administration de l’hôtel grâce à une interface pratique et intuitive.
+
+---
+
+## 🚀 Fonctionnalités
+
+- ✅ Ajouter / modifier / supprimer des clients
+- ✅ Gestion des chambres disponibles
+- ✅ Système de réservation
+- ✅ Gestion des paiements
+- ✅ Interface d’administration
+- ✅ Consultation des informations des clients
+
+---
+
+## 🛠️ Technologies utilisées
+
 - Java
 - MySQL
 - HTML / CSS
 - PHP
+- XAMPP
 
-## Fonctionnalités
-- Gestion des clients
-- Réservation des chambres
-- Gestion des paiements
-- Administration des chambres
+---
 
-## Auteur
-Azzeddine Beroui
+## 📥 Installation du projet
+
+### 1️⃣ Cloner le repository
+
+```bash
+git clone https://github.com/USERNAME/hotel-management-system.git
+2️⃣ Accéder au dossier du projet
+cd hotel-management-system
+3️⃣ Installer XAMPP
+
+Télécharger et installer XAMPP :
+
+Apache
+MySQL
+
+⚙️ Configuration de la base de données
+Ouvrir phpMyAdmin
+Créer une base de données :
+hotel_db
+Importer le fichier SQL du projet :
+database/hotel_db.sql
+
+▶️ Exécution du projet
+Pour lancer le projet :
+Démarrer :
+Apache
+MySQL
+Copier le projet dans :
+htdocs/
+Ouvrir le navigateur :
+http://localhost/hotel-management-system
+
+📂 Structure du projet
+hotel-management-system/
+│
+├── database/
+├── css/
+├── js/
+├── images/
+├── pages/
+├── index.php
+└── README.md
+👨‍💻 Auteur
+
+Ayoub Louraoui
+
+📄 Licence
+
+Ce projet est réalisé dans le cadre d’un projet académique.
